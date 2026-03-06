@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Clicker Civilizacion</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script src="./js/script.js"></script>
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- ===== PANEL IZQUIERDO: GALLETA ===== -->
+    <section class="panel-galleta">
+      <h1 class="titulo">Cookie Clicker <span class="subtitulo">Civilization Edition</span></h1>
+
+      <div class="contador-area">
+        <p class="etiqueta-contador">Galletas horneadas</p>
+        <!-- Aqui mostraremos el contador. Fijaos en el id -->
+        <p id="contador" class="numero-contador">0</p>
+      </div>
+
+      <!-- La galleta en si. El click va aqui -->
+      <button id="btn-galleta" class="galleta" title="Haz click para hornear">
+        🍪
+      </button>
+
+      <button id="btn-reset" class="btn-reset">Reiniciar</button>
+    </section>
+
+    <!-- ===== PANEL DERECHO: MEJORAS Y CITAS ===== -->
+    <section class="panel-lateral">
+
+      <!-- --- MEJORAS --- -->
+      <div class="caja mejoras">
+        <h2>Mejoras</h2>
+
+        <!-- Mejora 1: Galleta mas grande -->
+        <div class="mejora-card" id="card-tamano">
+          <div class="mejora-info">
+            <strong>Galleta gigante</strong>
+            <p>Duplica el valor de cada click.</p>
+            <!-- El nivel actual y el coste se actualizan desde JS -->
+            <p>Nivel: <span id="nivel-tamano">0</span></p>
+          </div>
+          <button id="btn-tamano" class="btn-mejora">
+            Comprar (<span id="coste-tamano">10</span> 🍪)
+          </button>
+        </div>
+
+        <!-- Mejora 2: Galletita de la suerte -->
+        <div class="mejora-card" id="card-suerte">
+          <div class="mejora-info">
+            <strong>Galletita de la suerte</strong>
+            <p>Revela una cita sabia de los grandes lideres.</p>
+            <p>Citas desbloqueadas: <span id="num-citas">0</span></p>
+          </div>
+          <button id="btn-suerte" class="btn-mejora">
+            Comprar (<span id="coste-suerte">50</span> 🍪)
+          </button>
+        </div>
+      </div>
+
+      <!-- --- LISTA DE CITAS --- -->
+      <div class="caja citas" id="seccion-citas">
+        <h2>Sabiduria de los Lideres</h2>
+        <!-- Las citas se van anadiendo aqui dinamicamente -->
+        <ul id="lista-citas">
+          <!-- Ejemplo de como quedara cada cita (no lo borres, sirve de referencia): -->
+          <!-- <li class="cita-item"><span class="cita-texto">"..."</span><span class="cita-autor">- Lider, Civ</span></li> -->
+        </ul>
+        <p id="msg-sin-citas" class="msg-vacio">Compra una galletita de la suerte para desbloquear una cita.</p>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ===== BANNER DE ERA ===== -->
+  <!-- La imagen cambia desde JS cuando se avanza de era -->
+  <div class="banner-era">
+    <img id="banner-img" src="assets/galleta-antigua.jpg" alt="Era actual" />
+    <span id="banner-nombre-era" class="banner-nombre-era">Era Antigua</span>
+  </div>
+
+</body>
+</html>

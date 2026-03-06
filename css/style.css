@@ -1,0 +1,327 @@
+/* ======================================================
+   COOKIE CLICKER - CIVILIZATION EDITION
+   Hoja de estilos. No hace falta que la modifiqueis
+   (aunque podeis hacer todo lo que querais).
+   ====================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Lato:wght@400;700&display=swap');
+
+/* ----- Reset y base ----- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #1a0f00;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, #2e1a00 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, #1a2e00 0%, transparent 50%);
+  color: #f0deb4;
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 0;
+}
+
+/* ----- Contenedor principal ----- */
+.contenedor {
+  display: flex;
+  gap: 2rem;
+  max-width: 960px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* ----- Panel izquierdo (galleta) ----- */
+.panel-galleta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.titulo {
+  font-family: 'MedievalSharp', 'Georgia', serif;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #f5c842;
+  text-shadow: 0 0 12px #f5c84288;
+  line-height: 1.3;
+}
+
+.subtitulo {
+  display: block;
+  font-size: 0.9rem;
+  color: #c8a856;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
+/* ----- Contador ----- */
+.contador-area {
+  text-align: center;
+  background: #0e0700;
+  border: 1px solid #5a3e00;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
+.etiqueta-contador {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #a08040;
+  margin-bottom: 0.25rem;
+}
+
+.numero-contador {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f5c842;
+  text-shadow: 0 0 16px #f5c84266;
+  line-height: 1;
+}
+
+/* ----- La galleta ----- */
+.galleta {
+  font-size: 7rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.08s ease;
+  filter: drop-shadow(0 0 18px #c8841066);
+  line-height: 1;
+  user-select: none;
+}
+
+.galleta:hover {
+  filter: drop-shadow(0 0 30px #f5c842aa);
+  transform: scale(1.05);
+}
+
+.galleta:active {
+  transform: scale(0.9);
+  filter: drop-shadow(0 0 8px #c88410aa);
+}
+
+/* El tamano de la galleta se controla desde JS con esta clase o con style.fontSize */
+/* Nivel 1: 7rem  Nivel 2: 9rem  Nivel 3: 11rem ... */
+
+/* ----- Boton reset ----- */
+.btn-reset {
+  background: transparent;
+  border: 1px solid #5a1a1a;
+  color: #c05050;
+  padding: 0.4rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-reset:hover {
+  background: #5a1a1a;
+  color: #f0a0a0;
+}
+
+/* ----- Panel lateral ----- */
+.panel-lateral {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ----- Cajas genéricas ----- */
+.caja {
+  background: #0e0700;
+  border: 1px solid #5a3e00;
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+}
+
+.caja h2 {
+  font-family: 'MedievalSharp', 'Georgia', serif;
+  font-size: 1.1rem;
+  color: #f5c842;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #3a2800;
+  padding-bottom: 0.5rem;
+}
+
+/* ----- Tarjetas de mejora ----- */
+.mejora-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: #160d00;
+  border: 1px solid #3a2800;
+  margin-bottom: 0.8rem;
+  transition: border-color 0.2s;
+}
+
+.mejora-card:last-child {
+  margin-bottom: 0;
+}
+
+.mejora-card:hover {
+  border-color: #7a5a00;
+}
+
+.mejora-info strong {
+  color: #e8c060;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.mejora-info p {
+  font-size: 0.8rem;
+  color: #907040;
+  line-height: 1.4;
+}
+
+.btn-mejora {
+  flex-shrink: 0;
+  background: #3a2800;
+  border: 1px solid #7a5a00;
+  color: #f5c842;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.btn-mejora:hover:not(:disabled) {
+  background: #5a4000;
+  border-color: #f5c842;
+}
+
+/* Cuando el boton esta deshabilitado (sin galletas suficientes) */
+.btn-mejora:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: #3a2800;
+}
+
+/* ----- Lista de citas ----- */
+.citas {
+  min-height: 120px;
+}
+
+#lista-citas {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cita-item {
+  border-left: 3px solid #f5c842;
+  padding: 0.5rem 0.8rem;
+  background: #160d00;
+  border-radius: 0 6px 6px 0;
+  animation: aparecer 0.4s ease;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cita-texto {
+  display: block;
+  font-style: italic;
+  color: #e8d090;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.2rem;
+}
+
+.cita-autor {
+  display: block;
+  font-size: 0.75rem;
+  color: #907040;
+  text-align: right;
+}
+
+.msg-vacio {
+  font-size: 0.8rem;
+  color: #605030;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* ----- Banner de era ----- */
+.banner-era {
+  position: relative;
+  width: 100vw;           /* ocupa todo el ancho de la ventana */
+  max-height: 260px;
+  overflow: hidden;
+  margin-top: 3rem;
+  border-top: 2px solid #5a3e00;
+  flex-shrink: 0;
+}
+
+.banner-era img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  transition: opacity 0.6s ease;
+}
+
+/* Degradado para que se funda con el fondo de la pagina */
+.banner-era::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #1a0f00 0%, transparent 30%, transparent 70%, #1a0f00 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.banner-nombre-era {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: 'MedievalSharp', 'Georgia', serif;
+  font-size: 1.4rem;
+  color: #f5c842;
+  text-shadow: 0 0 20px #00000099, 0 2px 8px #000;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+}
+
+/* ----- Responsive basico ----- */
+@media (max-width: 640px) {
+  .contenedor {
+    flex-direction: column;
+  }
+
+  .panel-galleta {
+    position: static;
+  }
+}
