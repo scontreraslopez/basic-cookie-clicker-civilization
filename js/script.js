@@ -149,7 +149,7 @@ function actualizarContador() {
  */
 function actualizarBotones() {
   // TODO: deshabilita btnTamano si galletas < costeTamano
-  // TODO: deshabilita btnSuerte si galletas < costeSuerte
+  // TODO: deshabilita btnSuerte si galletas < costeSuerte o no quedan citas
 }
 
 /**
