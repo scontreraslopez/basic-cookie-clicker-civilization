@@ -66,39 +66,39 @@ const eras = [
 // ------------------------------------------------------------
 
 // TODO: Obtén el elemento con id "btn-galleta" y guárdalo en btnGalleta
-const btnGalleta = /* tu código aquí */;
+const btnGalleta = document.getElementById("btn-galleta");
 
 // TODO: Obtén el elemento del contador (id "contador")
-const elContador = /* tu código aquí */;
+const elContador = document.getElementById("contador");
 
 // TODO: Obtén el botón de reset (id "btn-reset")
-const btnReset = /* tu código aquí */;
+const btnReset = document.getElementById("btn-reset");
 
 // TODO: Obtén los botones de mejora
-const btnTamano = /* tu código aquí */;   // id "btn-tamano"
-const btnSuerte = /* tu código aquí */;   // id "btn-suerte"
+const btnTamano = document.getElementById("btn-tamano");   // id "btn-tamano"
+const btnSuerte = document.getElementById("btn-suerte");   // id "btn-suerte"
 
 // TODO: Obtén los spans donde se muestra el coste de cada mejora
-const elCosteTamano = /* tu código aquí */;   // id "coste-tamano"
-const elCosteSuerte = /* tu código aquí */;   // id "coste-suerte"
+const elCosteTamano = document.getElementById("coste-tamano");   // id "coste-tamano"
+const elCosteSuerte = document.getElementById("coste-suerte");   // id "coste-suerte"
 
 // TODO: Obtén el span que muestra el nivel de la mejora de tamano (id "nivel-tamano")
-const elNivelTamano = /* tu código aquí */;
+const elNivelTamano = document.getElementById("nivel-tamano");
 
 // TODO: Obtén el span con el numero de citas desbloqueadas (id "num-citas")
-const elNumCitas = /* tu código aquí */;
+const elNumCitas = document.getElementById("num-citas");
 
 // TODO: Obtén el <ul> donde añadiremos las citas (id "lista-citas")
-const listaCitas = /* tu código aquí */;
+const listaCitas = document.getElementById("lista-citas");
 
 // TODO: Obtén el parrafo de mensaje "sin citas" (id "msg-sin-citas")
-const msgSinCitas = /* tu código aquí */;
+const msgSinCitas = document.getElementById("msg-sin-citas");
 
 // TODO: Obtén la imagen del banner (id "banner-img")
-const bannerImg = /* tu código aquí */;
+const bannerImg = document.getElementById("banner-img");
 
 // TODO: Obtén el span con el nombre de la era del banner (id "banner-nombre-era")
-const bannerNombreEra = /* tu código aquí */;
+const bannerNombreEra = document.getElementById("banner-nombre-era");
 
 
 // ------------------------------------------------------------
@@ -139,7 +139,7 @@ let citasDisponibles = [];
  * Pista: modifica la propiedad textContent del elemento elContador.
  */
 function actualizarContador() {
-  // TODO
+  elContador.textContent = galletas;
 }
 
 /**
@@ -149,7 +149,9 @@ function actualizarContador() {
  */
 function actualizarBotones() {
   // TODO: deshabilita btnTamano si galletas < costeTamano
+  btnTamano.disabled = galletas < costeTamano;
   // TODO: deshabilita btnSuerte si galletas < costeSuerte
+  btnSuerte.disabled = galletas < costeSuerte;
 }
 
 /**
@@ -160,7 +162,9 @@ function actualizarBotones() {
  *   3. Llamar a actualizarBotones()
  */
 function clickGalleta() {
-  // TODO
+  galletas += valorClick;
+  actualizarContador();
+  actualizarBotones();
 }
 
 /**
@@ -179,6 +183,13 @@ function clickGalleta() {
  */
 function resetear() {
   // TODO
+  galletas = 0;
+  valorClick = 1;
+  nivelTamano = 0;
+  numCitas = 0;
+  costeTamano = 10;
+  costeSuerte = 50;
+  indiceEra = 0;
 }
 
 /**
@@ -198,7 +209,19 @@ function comprarTamano() {
   // TODO: primero comprueba que galletas >= costeTamano (aunque el boton
   //       ya estara deshabilitado, es buena practica comprobarlo igual)
 
-  // TODO
+  if (galletas >= costeTamano) {
+    galletas -= costeTamano;
+    valorClick *= 2;
+    nivelTamano++;
+    costeTamano *= 2;
+
+    const nuevoTamanio = TAMANOS_GALLETA[Math.min(nivelTamano, TAMANOS_GALLETA.length - 1)];
+    btnGalleta.style.fontSize = nuevoTamanio + "rem";
+    
+    elNivelTamano.textContent = nivelTamano;
+    elCosteTamano.textContent = costeTamano;
+  }
+
 }
 
 /**
@@ -250,6 +273,7 @@ function comprarSuerte() {
 // TODO: cuando se haga click en btnTamano, ejecutar comprarTamano
 // TODO: cuando se haga click en btnSuerte, ejecutar comprarSuerte
 
+btnGalleta.addEventListener("click", clickGalleta);
 
 // ------------------------------------------------------------
 // PASO 5 - INICIALIZACION
@@ -258,6 +282,8 @@ function comprarSuerte() {
 function inicializar() {
   // TODO: copia las citas de eras[0] en citasDisponibles usando .slice()
   // TODO: llama a actualizarContador() y actualizarBotones()
+  actualizarContador();
+  actualizarBotones();
 }
 
 inicializar();
