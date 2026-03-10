@@ -4,6 +4,15 @@ Ejercicio voluntario de JavaScript para practicar manipulación del DOM.
 
 ---
 
+## Ramas del repositorio
+
+| Rama | Descripción |
+|------|-------------|
+| `main` | Código de partida — el `script.js` está vacío para que lo implementes tú |
+| `develop` | Solución propuesta — implementación completa como referencia |
+
+---
+
 ## ¿Qué es esto?
 
 Un **Cookie Clicker** es un juego incremental muy sencillo: haces click en algo, ganas puntos, y con esos puntos compras mejoras que hacen el juego más fácil o más interesante.
