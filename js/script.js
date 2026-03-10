@@ -57,8 +57,8 @@ const eras = [
   },
   //Completa tu el resto
   {
-    era: "Era Antigua",
-    imagen: "assets/galleta-antigua.jpg",
+    era: "Era Clásica",
+    imagen: "assets/galleta-clasica.jpg",
     citas: [
       { tecnologia: "Alfabeto",
         texto: "Las palabras tienen el poder de destruir y sanar. Cuando las palabras son verdaderas y amables, pueden cambiar nuestro mundo.",
@@ -164,39 +164,39 @@ const eras = [
 // los elementos HTML que vamos a necesitar.
 // ------------------------------------------------------------
 
-// TODO: Obtén el elemento con id "btn-galleta" y guárdalo en btnGalleta
+// DONE: Obtén el elemento con id "btn-galleta" y guárdalo en btnGalleta
 const btnGalleta = document.getElementById("btn-galleta");
 
-// TODO: Obtén el elemento del contador (id "contador")
+// DONE: Obtén el elemento del contador (id "contador")
 const elContador = document.getElementById("contador");
 
-// TODO: Obtén el botón de reset (id "btn-reset")
+// DONE: Obtén el botón de reset (id "btn-reset")
 const btnReset = document.getElementById("btn-reset");
 
-// TODO: Obtén los botones de mejora
+// DONE: Obtén los botones de mejora
 const btnTamano = document.getElementById("btn-tamano");   // id "btn-tamano"
 const btnSuerte = document.getElementById("btn-suerte");   // id "btn-suerte"
 
-// TODO: Obtén los spans donde se muestra el coste de cada mejora
+// DONE: Obtén los spans donde se muestra el coste de cada mejora
 const elCosteTamano = document.getElementById("coste-tamano");   // id "coste-tamano"
 const elCosteSuerte = document.getElementById("coste-suerte");   // id "coste-suerte"
 
-// TODO: Obtén el span que muestra el nivel de la mejora de tamano (id "nivel-tamano")
+// DONE: Obtén el span que muestra el nivel de la mejora de tamano (id "nivel-tamano")
 const elNivelTamano = document.getElementById("nivel-tamano");
 
-// TODO: Obtén el span con el numero de citas desbloqueadas (id "num-citas")
+// DONE: Obtén el span con el numero de citas desbloqueadas (id "num-citas")
 const elNumCitas = document.getElementById("num-citas");
 
-// TODO: Obtén el <ul> donde añadiremos las citas (id "lista-citas")
+// DONE: Obtén el <ul> donde añadiremos las citas (id "lista-citas")
 const listaCitas = document.getElementById("lista-citas");
 
-// TODO: Obtén el parrafo de mensaje "sin citas" (id "msg-sin-citas")
+// DONE: Obtén el parrafo de mensaje "sin citas" (id "msg-sin-citas")
 const msgSinCitas = document.getElementById("msg-sin-citas");
 
-// TODO: Obtén la imagen del banner (id "banner-img")
+// DONE: Obtén la imagen del banner (id "banner-img")
 const bannerImg = document.getElementById("banner-img");
 
-// TODO: Obtén el span con el nombre de la era del banner (id "banner-nombre-era")
+// DONE: Obtén el span con el nombre de la era del banner (id "banner-nombre-era")
 const bannerNombreEra = document.getElementById("banner-nombre-era");
 
 
@@ -247,10 +247,10 @@ function actualizarContador() {
  * Pista: un boton tiene la propiedad .disabled = true / false
  */
 function actualizarBotones() {
-  // TODO: deshabilita btnTamano si galletas < costeTamano
+  // DONE: deshabilita btnTamano si galletas < costeTamano
   btnTamano.disabled = galletas < costeTamano;
-  // TODO: deshabilita btnSuerte si galletas < costeSuerte
-  btnSuerte.disabled = galletas < costeSuerte;
+  // DONE: deshabilita btnSuerte si galletas < costeSuerte o no quedan citas
+  btnSuerte.disabled = galletas < costeSuerte || citasDisponibles.length === 0;
 }
 
 /**
@@ -289,6 +289,18 @@ function resetear() {
   costeTamano = 10;
   costeSuerte = 50;
   indiceEra = 0;
+  citasDisponibles = eras[indiceEra].citas.slice();
+  actualizarContador();
+  actualizarBotones();
+  btnGalleta.style.fontSize = TAMANOS_GALLETA[0] + "rem";
+  elNivelTamano.textContent = nivelTamano;
+  elNumCitas.textContent = numCitas;
+  listaCitas.innerHTML = "";
+  msgSinCitas.style.display = "block";
+  elCosteTamano.textContent = costeTamano;
+  elCosteSuerte.textContent = costeSuerte;
+  bannerImg.src = eras[indiceEra].imagen;
+  bannerNombreEra.textContent = eras[indiceEra].era;
 }
 
 /**
@@ -319,6 +331,9 @@ function comprarTamano() {
     
     elNivelTamano.textContent = nivelTamano;
     elCosteTamano.textContent = costeTamano;
+
+    actualizarContador();
+    actualizarBotones();
   }
 
 }
@@ -357,9 +372,39 @@ function comprarTamano() {
  *  12. Llama a actualizarContador() y actualizarBotones()
  */
 function comprarSuerte() {
-  // TODO
-}
+  // DONE
+  if (galletas < costeSuerte || citasDisponibles.length === 0) {
+    return; // No se puede comprar. Esta es otra manera de programar para no tener que anidar todo dentro del if.
+  }
+  galletas -= costeSuerte;
+  const indiceAleatorio = Math.floor(Math.random() * citasDisponibles.length);
+  const citaElegida = citasDisponibles.splice(indiceAleatorio, 1)[0]; // splice devuelve un array con los elementos eliminados, por eso [0]
 
+  const nuevoLi = document.createElement("li");
+  nuevoLi.classList.add("cita-item");
+  nuevoLi.innerHTML = `
+    <span class="cita-texto">"${citaElegida.texto}"</span>
+    <span class="cita-autor">- ${citaElegida.autor} · ${eras[indiceEra].era}</span>
+  `;
+  listaCitas.prepend(nuevoLi);
+
+  if (citasDisponibles.length === 0) {
+    indiceEra++;
+    if (indiceEra < eras.length) {
+      citasDisponibles = eras[indiceEra].citas.slice();
+      bannerImg.src = eras[indiceEra].imagen;
+      bannerNombreEra.textContent = eras[indiceEra].era;
+    }
+  }
+
+  numCitas++;
+  elNumCitas.textContent = numCitas;
+  costeSuerte *= 2;
+  elCosteSuerte.textContent = costeSuerte;
+  msgSinCitas.style.display = "none";
+  actualizarContador();
+  actualizarBotones();
+}
 
 // ------------------------------------------------------------
 // PASO 4 - EVENTOS
@@ -367,20 +412,23 @@ function comprarSuerte() {
 // El evento de click se llama "click".
 // ------------------------------------------------------------
 
-// TODO: cuando se haga click en btnGalleta, ejecutar clickGalleta
-// TODO: cuando se haga click en btnReset, ejecutar resetear
-// TODO: cuando se haga click en btnTamano, ejecutar comprarTamano
-// TODO: cuando se haga click en btnSuerte, ejecutar comprarSuerte
+// DONE: cuando se haga click en btnGalleta, ejecutar clickGalleta
+// DONE: cuando se haga click en btnReset, ejecutar resetear
+// DONE: cuando se haga click en btnTamano, ejecutar comprarTamano
+// DONE: cuando se haga click en btnSuerte, ejecutar comprarSuerte
 
 btnGalleta.addEventListener("click", clickGalleta);
-
+btnReset.addEventListener("click", resetear);
+btnTamano.addEventListener("click", comprarTamano);
+btnSuerte.addEventListener("click", comprarSuerte);
 // ------------------------------------------------------------
 // PASO 5 - INICIALIZACION
 // Carga las citas de la primera era y arranca el DOM.
 // ------------------------------------------------------------
 function inicializar() {
-  // TODO: copia las citas de eras[0] en citasDisponibles usando .slice()
-  // TODO: llama a actualizarContador() y actualizarBotones()
+  // DONE: copia las citas de eras[0] en citasDisponibles usando .slice()
+  citasDisponibles = eras[0].citas.slice();
+  // DONE: llama a actualizarContador() y actualizarBotones()
   actualizarContador();
   actualizarBotones();
 }
